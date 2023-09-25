@@ -1,4 +1,8 @@
 using Application;
+using Identity;
+using Identity.Models;
+using Identity.Seeds;
+using Microsoft.AspNetCore.Identity;
 using Persistence;
 using Shared;
 using WebAPI.Extensions;
@@ -8,6 +12,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.AddApplicationLayer();
+builder.Services.AddIdentityInfrastructure(builder.Configuration);
 builder.Services.AddSharedInfrastructure(builder.Configuration);
 builder.Services.AddPersistenceInfrastructure(builder.Configuration);
 builder.Services.AddControllers();
@@ -17,6 +22,27 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+
+    try
+    {
+        var userManager = services.GetRequiredService<UserManager<ApplicationUser>>();
+        var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
+
+        await DefaultRoles.SeedAsync(userManager, roleManager);
+        await DefaultAdminUser.SeedAsync(userManager, roleManager);
+        await DefaultBasicUser.SeedAsync(userManager, roleManager);
+    }
+    catch (Exception ex)
+    {
+        // Handle exceptions here
+        // You might want to log the exception or take appropriate action
+        Console.WriteLine($"An error occurred: {ex}");
+    }
+}
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
@@ -25,7 +51,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
+app.UseAuthentication();
 app.UseAuthorization();
 app.useErrorHandlingMiddleware();
 
