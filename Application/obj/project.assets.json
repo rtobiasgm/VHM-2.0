@@ -192,6 +192,16 @@
         "build": {
           "buildTransitive/netcoreapp3.1/_._": {}
         }
+      },
+      "Domain/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v7.0",
+        "compile": {
+          "bin/placeholder/Domain.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Domain.dll": {}
+        }
       }
     }
   },
@@ -494,6 +504,11 @@
         "system.runtime.compilerservices.unsafe.nuspec",
         "useSharedDesignerContext.txt"
       ]
+    },
+    "Domain/1.0.0": {
+      "type": "project",
+      "path": "../Domain/Domain.csproj",
+      "msbuildProject": "../Domain/Domain.csproj"
     }
   },
   "projectFileDependencyGroups": {
@@ -501,6 +516,7 @@
       "Ardalis.Specification >= 7.0.0",
       "AutoMapper >= 12.0.1",
       "AutoMapper.Extensions.Microsoft.DependencyInjection >= 12.0.1",
+      "Domain >= 1.0.0",
       "FluentValidation >= 11.7.1",
       "FluentValidation.DependencyInjectionExtensions >= 11.7.1",
       "MediatR.Extensions.Microsoft.DependencyInjection >= 11.1.0"
@@ -532,7 +548,11 @@
       "frameworks": {
         "net7.0": {
           "targetAlias": "net7.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\Users\\Tobias\\source\\repos\\VHM-2.0\\Domain\\Domain.csproj": {
+              "projectPath": "C:\\Users\\Tobias\\source\\repos\\VHM-2.0\\Domain\\Domain.csproj"
+            }
+          }
         }
       },
       "warningProperties": {

@@ -10,3 +10,6 @@ C:\Users\Tobias\source\repos\VHM-2.0\Application\obj\Debug\net7.0\Application.dl
 C:\Users\Tobias\source\repos\VHM-2.0\Application\obj\Debug\net7.0\refint\Application.dll
 C:\Users\Tobias\source\repos\VHM-2.0\Application\obj\Debug\net7.0\Application.pdb
 C:\Users\Tobias\source\repos\VHM-2.0\Application\obj\Debug\net7.0\ref\Application.dll
+C:\Users\Tobias\source\repos\VHM-2.0\Application\bin\Debug\net7.0\Domain.dll
+C:\Users\Tobias\source\repos\VHM-2.0\Application\bin\Debug\net7.0\Domain.pdb
+C:\Users\Tobias\source\repos\VHM-2.0\Application\obj\Debug\net7.0\Application.csproj.CopyComplete

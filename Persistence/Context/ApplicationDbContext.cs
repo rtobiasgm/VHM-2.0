@@ -1,13 +1,7 @@
-﻿using Application.Features.Customers.Commands.CreateCustomerCommand;
-using Application.Interfaces;
+﻿using Application.Interfaces;
 using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Persistence.Context
 {
@@ -17,9 +11,13 @@ namespace Persistence.Context
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options, IDateTimeService dateTime) : base (options)
         {
             ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
+            _dateTime = dateTime;
         }
 
         public DbSet<Customer> Customers { get; set; }
+        public DbSet<CarType> CarTypes { get; set; }
+        public DbSet<PlateOrders> PlateOrders { get; set; }
+        public DbSet<Plate> Plates { get; set; }
 
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
         {

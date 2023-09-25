@@ -27,7 +27,11 @@
         "frameworks": {
           "net7.0": {
             "targetAlias": "net7.0",
-            "projectReferences": {}
+            "projectReferences": {
+              "C:\\Users\\Tobias\\source\\repos\\VHM-2.0\\Domain\\Domain.csproj": {
+                "projectPath": "C:\\Users\\Tobias\\source\\repos\\VHM-2.0\\Domain\\Domain.csproj"
+              }
+            }
           }
         },
         "warningProperties": {

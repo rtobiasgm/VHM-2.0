@@ -16,10 +16,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Features\Customers\Queries\" />
-    <Folder Include="Mappings\" />
     <Folder Include="Filters\" />
-    <Folder Include="Dtos\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Domain\Domain.csproj" />
   </ItemGroup>
 
 </Project>
