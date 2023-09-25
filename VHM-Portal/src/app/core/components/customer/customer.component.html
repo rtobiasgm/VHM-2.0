@@ -1,0 +1,85 @@
+
+<br>
+<h1>Customers</h1>
+
+<div class="form-group col-md-4 col-sm-6 mb-2">
+  <div class="input-group">
+    <input matInput (keyup)="search($event)" type="text" class="form-control" placeholder="Search" aria-describedby="button-addon2"
+      formControlName="searchTerm">
+    <button class="btn btn-primary" type="button" id="button-addon2">
+      <i class="fa fa-search fa-fw" aria-hidden="true"></i>
+    </button>
+  </div>
+</div>
+
+<table mat-table [dataSource]="dataSource" matSort (matSortChange)="announceSortChange($event)"
+       class="mat-elevation-z8">
+
+  <!-- Position Column -->
+  <ng-container matColumnDef="id">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by number">
+      Id
+    </th>
+    <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+  </ng-container>
+
+  <!-- Name Column -->
+  <ng-container matColumnDef="name">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by name">
+      Name
+    </th>
+    <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+  </ng-container>
+
+  <!-- Weight Column -->
+  <ng-container matColumnDef="lastName">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by weight">
+      Lastname
+    </th>
+    <td mat-cell *matCellDef="let element"> {{element.lastName}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="documentId">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by weight">
+      Document Id
+    </th>
+    <td mat-cell *matCellDef="let element"> {{element.documentId}} </td>
+  </ng-container>
+
+  <!-- Symbol Column -->
+  <ng-container matColumnDef="birthDate">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by symbol">
+      BirthDate
+    </th>
+    <td mat-cell *matCellDef="let element"> {{element.birthDate | date: 'dd/MM/yyyy HH:mm:ss'}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="personType">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by weight">
+      PersonType
+    </th>
+    <td mat-cell *matCellDef="let element"> {{element.personType}} </td>
+  </ng-container>
+
+
+
+  <ng-container matColumnDef="actions">
+    <th mat-header-cell *matHeaderCellDef>
+      Actions
+    </th>
+    <td mat-cell *matCellDef="let element">
+      <button type="button" class="btn btn-success m-1">
+        <i class="fa fa-plus" aria-hidden="true"></i>
+      </button>
+      <button type="button" class="btn btn-secondary m-1">
+        <i class="fa fa-download fa-fw" aria-hidden="true"></i>
+      </button>
+    </td> 
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr> 
+</table>
+
+<mat-paginator [pageSizeOptions]="[20]" showFirstLastButtons aria-label="Select page of periodic elements">
+</mat-paginator>
