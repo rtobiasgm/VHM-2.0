@@ -2,15 +2,27 @@
 <br>
 <h1>Customers</h1>
 
+<div class="form-group col-md-12">
+    <div class="input group">
+      <button type="button" class="btn btn-success float-end" data-bs-toggle="modal" data-bs-target="#addCustomerModal"
+        (click)="clickAddProp()">
+         Add Customer
+        <i class="fa fa-plus fa-fw" aria-hidden="true"></i>
+      </button>
+    </div>
+  </div>
+
 <div class="form-group col-md-4 col-sm-6 mb-2">
   <div class="input-group">
     <input matInput (keyup)="search($event)" type="text" class="form-control" placeholder="Search" aria-describedby="button-addon2"
-      formControlName="searchTerm">
+      >
     <button class="btn btn-primary" type="button" id="button-addon2">
       <i class="fa fa-search fa-fw" aria-hidden="true"></i>
     </button>
   </div>
 </div>
+
+
 
 <table mat-table [dataSource]="dataSource" matSort (matSortChange)="announceSortChange($event)"
        class="mat-elevation-z8">
@@ -61,18 +73,16 @@
     <td mat-cell *matCellDef="let element"> {{element.personType}} </td>
   </ng-container>
 
-
-
   <ng-container matColumnDef="actions">
     <th mat-header-cell *matHeaderCellDef>
       Actions
     </th>
     <td mat-cell *matCellDef="let element">
-      <button type="button" class="btn btn-success m-1">
-        <i class="fa fa-plus" aria-hidden="true"></i>
+      <button type="button" class="btn btn-info m-1" data-bs-toggle="modal" data-bs-target="#addCustomerModal" data-toggle="tooltip" (click)="edit(element,element.id)">
+        <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
       </button>
-      <button type="button" class="btn btn-secondary m-1">
-        <i class="fa fa-download fa-fw" aria-hidden="true"></i>
+      <button type="button" class="btn btn-danger m-1" (click)="deleteCustomer(element.id)">
+        <i class="fa fa-download fa-trash" aria-hidden="true"></i>
       </button>
     </td> 
   </ng-container>
@@ -83,3 +93,91 @@
 
 <mat-paginator [pageSizeOptions]="[20]" showFirstLastButtons aria-label="Select page of periodic elements">
 </mat-paginator>
+
+<div class="modal" id="addCustomerModal">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">{{(showEdit ? 'Edit Customer' : 'Add Customer')}}</h4>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true"></span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form [formGroup]="modalValue" (ngSubmit)="showEdit ? updateCustomer(modalValue.value.id, modalValue.value): addCustomer()">  
+            <div class="form-group">
+              <label class="form-label">Name </label>
+              <input type="text" formControlName="name" class="form-control"
+                placeholder="Name"
+                [ngClass]="{ 'is-invalid': f['name'].touched && f['name'].errors }">
+  
+              <div *ngIf="f['name'].touched && f['name'].invalid" class="invalid-feedback">
+                <div *ngIf="f['name'].errors && f['name'].errors['required']">
+                  Name is required
+                </div>
+              </div>
+            </div>
+  
+            <div class="form-group">
+              <label class="form-label mt-4">Lastname </label>
+              <input type="text" formControlName="lastname" class="form-control" maxlength="10"
+                placeholder="Lastname"
+                [ngClass]="{ 'is-invalid': f['lastname'].touched && f['lastname'].errors }">
+              <div *ngIf="f['lastname'].touched && f['lastname'].invalid" class="invalid-feedback">
+                <div *ngIf="f['lastname'].errors && f['lastname'].errors['required']">
+                  Lastname is required
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label mt-4">Document</label>
+                <input type="text" formControlName="documentId" class="form-control" maxlength="11"
+                  placeholder="Document"
+                  [ngClass]="{'is-invalid': f['documentId'].touched && f['documentId'].errors }">
+                <div *ngIf="f['documentId'].touched && f['documentId'].invalid" class="invalid-feedback">
+                  <div *ngIf="f['documentId'].errors && f['documentId'].errors['required']">
+                    Document is required
+                  </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label mt-4">Birthdate</label>
+                <input type="date" formControlName="birthdate" class="form-control" maxlength="10"
+                  placeholder="birthdate"
+                  [ngClass]="{'is-invalid': f['birthdate'].touched && f['birthdate'].errors }">
+                <div *ngIf="f['birthdate'].touched && f['birthdate'].invalid" class="invalid-feedback">
+                  <div *ngIf="f['birthdate'].errors && f['birthdate'].errors['required']">
+                    Birthdate is required
+                  </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label mt-4">Person Type</label>
+                <select class="form-control" formControlName="personType" required>
+                  <option value="">Select Person Type</option>
+                  <option value="Physical">Physical</option>
+                  <option value="Legal">Legal</option>
+                </select>
+                <!-- <input type="text" formControlName="personType" class="form-control" maxlength="10"
+                  placeholder="Person Type"
+                  [ngClass]="{'is-invalid': f['personType'].touched && f['personType'].errors }"> -->
+                <div *ngIf="f['personType'].touched && f['personType'].invalid" class="invalid-feedback">
+                  <div *ngIf="f['personType'].errors && f['personType'].errors['required']">
+                    Person Type is required
+                  </div>
+                </div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" data-bs-dismiss="modal" *ngIf="showEdit" class="btn btn-secondary"
+            (click)="updateCustomer(modalValue.value.id,modalValue.value)">Update</button>
+          <button type="button" data-bs-dismiss="modal" *ngIf="!showEdit" class="btn btn-primary" (click)="addCustomer()"
+            [disabled]="modalValue.invalid">Save</button>
+        </div>
+      </div>
+    </div>
+  </div>

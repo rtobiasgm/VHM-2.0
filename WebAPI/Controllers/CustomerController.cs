@@ -32,14 +32,12 @@ namespace WebAPI.Controllers
         }
 
         [HttpPost]
-        [Authorize]
         public async Task<IActionResult> Post(CreateCustomerCommand command)
         {
             return Ok(await _mediator.Send(command));
         }
 
         [HttpPut("{id}")]
-        [Authorize]
         public async Task<IActionResult> Put(int id, UpdateCustomerCommand command)
         {
             if (id != command.Id)
@@ -48,11 +46,10 @@ namespace WebAPI.Controllers
             return Ok(await _mediator.Send(command));
         }
 
-        [HttpDelete ("{id}")]
-        [Authorize]
-        public async Task<IActionResult> Put(int id)
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(int id)
         {
-            return Ok(await _mediator.Send(new DeleteCustomerCommand { Id = id}));
+            return Ok(await _mediator.Send(new DeleteCustomerCommand { Id = id }));
         }
     }
 }

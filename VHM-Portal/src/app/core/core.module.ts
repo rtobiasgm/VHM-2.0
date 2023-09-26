@@ -7,6 +7,7 @@ import { MatSortModule } from '@angular/material/sort';
 import {MatButtonModule} from '@angular/material/button';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import { CoreRoutingModule } from './core-routing.module';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -14,6 +15,7 @@ import { CoreRoutingModule } from './core-routing.module';
   ],
   imports: [
     CommonModule,
+    ReactiveFormsModule,
     CoreRoutingModule,
     RouterModule,
     MatTableModule,
